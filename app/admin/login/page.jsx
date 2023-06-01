@@ -1,24 +1,21 @@
 "use client";
-import react, { useState} from 'react';
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword  } from "firebase/auth";
+import react, { useContext, useState} from 'react';
+import { auth } from '../../../firebase';
+import { signInWithEmailAndPassword  } from "firebase/auth";
 
 export default function Login({user,setUser}){
     const [email,setEmail]= useState('');
     const [password,setPassword]= useState('');
     const [errorLogin,setErrorLogin]= useState('')
-    
-    console.log('currentUser',user)
-     const firebaseConfig = {
-        
-      };
-    const app = initializeApp(firebaseConfig);
+    const user_test= useContext('user')
+    console.group('currnet User =>',user)
+    console.group('user_test =>',user_test)
 
     const validateLogin=()=>{
         sendLogin();
     }
     const sendLogin=()=>{
-        const auth = getAuth();
+    
         
         signInWithEmailAndPassword(auth,email.trim(), password)
         .then((userCredential) => {
