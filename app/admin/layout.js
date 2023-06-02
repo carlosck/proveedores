@@ -1,7 +1,9 @@
+'use client';
 import '../globals.css'
 import { Inter } from 'next/font/google'
-
-import UserProvider from '../user-provider'
+import { createContext, useState } from 'react';
+//import UserProvider from '../user-provider';
+export const UserContext = createContext();
 const inter = Inter({ subsets: ['latin'] })
 
 
@@ -11,12 +13,15 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+  const [user,setUser]=useState('test')
 
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <UserProvider>{children}</UserProvider>
-      </body>
-    </html>
+    <UserContext.Provider value={[user,setUser]}>
+      <html lang="en">
+        <body className={inter.className}>
+          {children}
+        </body>
+      </html>
+    </UserContext.Provider>
   )
 }
