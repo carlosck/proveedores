@@ -180,68 +180,13 @@ export default function addProveedor(){
                     Submit Form
                 </button>
                 </div>
+                {success && (
+                    <p className="font-semibold text-green-500 mb-5 flex items-center gap-1">
+                        Form has been submitted successfully
+                    </p>
+                )}
             </form>
-                {/* <div className={formStyles.form_row}>
-                    <label htmlFor='name'>
-                        Nombre del proveedor
-                    </label>
-                    <input name='name' placeholder='Nombre' ref={inputName}></input>
-                </div>
-                <div className={formStyles.form_row}>
-                    <label htmlFor='contact'>
-                        Contacto
-                    </label>
-                    <input name='contact' placeholder='Contacto' ref={inputContact}></input>
-                </div>
-                <div className={formStyles.form_row}>
-                    <label htmlFor='logo'>
-                        Logo
-                    </label>
-                    <input name='logo' type='file' placeholder='Logo' ref={inputLogo}></input>
-                </div>
-                <div className={formStyles.form_row}>
-                    <label htmlFor='area'>
-                        Area
-                    </label>
-                    <select name='area' placeholder='Area' ref={inputArea}>
-                        <option value='plasticos'>Plasticos</option>
-                        <option value='metalurgia'>Metalurgia</option>
-                    </select>
-                </div>
-                <div className={formStyles.form_row}>
-                    <label htmlFor='subarea'>
-                        Subarea
-                    </label>
-                    <select name='subarea' placeholder='Subarea' ref={inputSubarea}>
-                        <option value='inyección'>Inyección</option>
-                        <option value='Vaciado'>Vaciado</option>
-                    </select>
-                </div>
-                <div className={formStyles.form_row}>
-                    <label htmlFor='mail'>
-                        Correo
-                    </label>
-                    <input name='mail' placeholder='Correo' ref={inputMail}></input>
-                </div>
-                <div className={formStyles.form_row}>
-                    <label htmlFor='phone'>
-                        Telefono
-                    </label>
-                    <input name='phone' placeholder='Telefono' ref={inputPhone}></input>
-                </div>
-                <div className={formStyles.form_row}>
-                    <label htmlFor='subscription'>
-                        Subscription
-                    </label>
-                    <input name='subscription' placeholder='Subscription' ref={inputSubscription}></input>
-                </div>
-                <div className={formStyles.form_row}>
-                    
-                    <button onClick={validateFormData}>Agregar</button>
-                </div> */}
-                
-            
-        
+                        
         </FormProvider>
         
     )
