@@ -13,7 +13,7 @@ export default function Login(){
     //const [user,setUser]= useContext(UserContext)
     const { push } = useRouter();
 
-    console.log('current User =>', user)
+    //console.log('current User =>', user)
     
 
     const validateLogin=()=>{
