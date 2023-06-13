@@ -7,7 +7,7 @@ import InitFirebase from '../../../helpers/initFirebase'
 import { Input } from '../commons/input'
 
 import formStyles from '../../../styles/forms.module.css'
-export default function addProveedor(){
+export default function AddProveedor(){
 
     const methods = useForm({defaultValues: {
         name: 'deacero',
