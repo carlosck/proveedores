@@ -1,27 +1,64 @@
 'use client'
-import { useForm, FormProvider } from 'react-hook-form'
-import { useRef, useState } from 'react'
+import { useForm, FormProvider, getValues } from 'react-hook-form'
+import { useEffect, useState } from 'react'
+import { doc, setDoc } from "firebase/firestore";
+
+import InitFirebase from '../../../helpers/initFirebase'
 import { Input } from '../commons/input'
+
 import formStyles from '../../../styles/forms.module.css'
 export default function addProveedor(){
 
-    const methods = useForm()
+    const methods = useForm({defaultValues: {
+        name: 'deacero',
+        contact: 'Juan Lopez',
+        logo: 'deacero.jpg',
+        area: 'acero',
+        subarea: 'fundición',
+        mail: 'jlopez@deacero.com',
+        phone: '844123123123',
+        subscription: 0
+    }})
     const [success, setSuccess] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
-    
-
-    const onSubmit = methods.handleSubmit(data => {
+    const onSubmit = methods.handleSubmit(async data => {
+        setIsLoading(true);
         console.log(data)
         methods.reset()
-        setSuccess(true)
+        const db =await getAppFirestore();
+        insertData(db,data).then((info)=>{
+            console.log('info', info)
+            setSuccess(true)
+            setIsLoading(false);
+        })
+        
     })
+    async function insertData(db, data){
+        console.log('db', db)
+        console.log('insertData', data)
+        //console.log('encodeURIComponent',encodeURIComponent(data.name))
+        await setDoc(doc(db, "proveedores",encodeURIComponent(data.name)), data)
+        
+        return (true)
+    }
+    async function getAppFirestore(){
+        // TODO: move to oneliner
+        console.log('getAppFirestore')
+        const firebase =await InitFirebase.getInstance()        
+        return firebase.getDB();
+    }
+
+    useEffect(()=>{
+        getAppFirestore();
+    },[])
 
     const name_validation = {
         name: 'name',
         label: 'name',
         type: 'text',
         id: 'name',
-        placeholder: 'write your name ...',
+        placeholder: 'write your name ...',        
         validation: {
           required: {
             value: true,
@@ -36,8 +73,8 @@ export default function addProveedor(){
     const contact_validation = {
         name: 'contact',
         label: 'contact',
-        type: 'text',
-        id: 'contact',
+        type: 'contact',
+        id: 'contact',        
         placeholder: 'write your contact ...',
         validation: {
             required: {
@@ -54,7 +91,7 @@ export default function addProveedor(){
         name: 'logo',
         label: 'logo',
         type: 'text',
-        id: 'logo',
+        id: 'logo',        
         placeholder: 'write your logo ...',
         validation: {
             required: {
@@ -90,6 +127,7 @@ export default function addProveedor(){
         label: 'subarea',
         type: 'text',
         id: 'subarea',
+        value: 'fundición',
         placeholder: 'write your subarea ...',
         validation: {
             required: {
@@ -106,8 +144,8 @@ export default function addProveedor(){
     const mail_validation = {
         name: 'mail',
         label: 'mail',
-        type: 'text',
-        id: 'mail',
+        type: 'email',
+        id: 'mail',        
         placeholder: 'write your mail ...',
         validation: {
             required: {
@@ -125,6 +163,7 @@ export default function addProveedor(){
         label: 'phone',
         type: 'text',
         id: 'phone',
+        value: '84412312234',
         placeholder: 'write your phone ...',
         validation: {
             required: {
@@ -141,12 +180,13 @@ export default function addProveedor(){
     const subscription_validation = {
         name: 'subscription',
         label: 'subscription',
-        type: 'text',
+        type: 'date',
         id: 'subscription',
+        value: 0,
         placeholder: 'write your subscription ...',
         validation: {
             required: {
-            value: true,
+            value: false,
             message: 'required',
             },
             maxLength: {
@@ -173,17 +213,23 @@ export default function addProveedor(){
                     <Input {...mail_validation} />
                     <Input {...phone_validation} />
                     <Input {...subscription_validation} />
-                    <button
-                    onClick={onSubmit}
-                    className="p-5 rounded-md bg-blue-600 font-semibold text-white flex items-center gap-1 hover:bg-blue-800"
-                >                    
-                    Submit Form
-                </button>
-                </div>
-                {success && (
-                    <p className="font-semibold text-green-500 mb-5 flex items-center gap-1">
-                        Form has been submitted successfully
-                    </p>
+                    {isLoading? (
+                        <p>Loading</p>
+                    ):(
+                        <button
+                            onClick={onSubmit}
+                            className="p-5 rounded-md bg-blue-600 font-semibold text-white flex items-center gap-1 hover:bg-blue-800"
+                        >                    
+                            Submit Form
+                        </button>
+                        )
+                    }
+                    
+                    </div>
+                    {success && (
+                        <p className="font-semibold text-green-500 mb-5 flex items-center gap-1">
+                            Form has been submitted successfully
+                        </p>
                 )}
             </form>
                         

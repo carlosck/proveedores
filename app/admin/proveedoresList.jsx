@@ -14,36 +14,38 @@ export default function ProveedoresList(){
     const [proveedores,setProveedores] = useState([])
     
     async function getAppFirestore(){
-        //const db= InitFirebase.getInstance().getDB();
-        const firebaseConfig = {
-            apiKey: "AIzaSyDzIT_JVqLgsxit71KS2ulYr44UXzAb3OI",
-            authDomain: "bingo-5b085.firebaseapp.com",
-            databaseURL: "https://bingo-5b085.firebaseio.com",
-            projectId: "bingo-5b085",
-            storageBucket: "bingo-5b085.appspot.com",
-            messagingSenderId: "864945342006",
-            appId: "1:864945342006:web:f939ad69a4f5c32e9cba97"
-          };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        
-        const proveedoresRef = collection(db, "proveedores");
+        // TODO: move to oneliner
+        console.log('getAppFirestore')
+        const firebase =await InitFirebase.getInstance()        
+        const db= firebase.getDB();
+
+        console.log('db',db);
+        const proveedoresRef = collection(db, "proveedores");        
         const alldocuments = await getDocs(proveedoresRef)
-        console.log('alldocuments',alldocuments.data())
-        //setProveedores(alldocuments);        
-        
-        
-        
-        alldocuments.forEach((doc) => {
-            console.log('${doc.id}' , doc.data());
-        });
-        
+        console.log('alldocuments',alldocuments.docs)
+            
+        setProveedores(alldocuments.docs);        
 
     }
+    const ProveedorItem=({proveedor})=>{           
+        const active_subscription = proveedor.subscription_end > new Date().getTime() ? 'Si' : 'No';
 
+        return(
+            <div className={styles.admin_panel_body_row}> 
+                <div className={styles.admin_panel_body_name}>{proveedor.name}</div>
+                <div className={styles.admin_panel_body_visits}>X</div>
+                <div className={styles.admin_panel_body_edit}>
+                    <a href={`/admin/editarProveedor/${34}`}>Editar</a>
+                    </div>
+                <div className={styles.admin_panel_body_subscriptor}>{active_subscription}</div>
+            </div>
+        )
+    }
     useEffect(()=>{
         getAppFirestore();
     },[])
+
+
     return(
         <div className={styles.admin_panel}>
             <div className={styles.admin_panel_header}> 
@@ -55,19 +57,9 @@ export default function ProveedoresList(){
             
             <div className={styles.admin_panel_body}> 
                 
-                {proveedores && proveedores.map((proovedor)=>{
-                    const data=proovedor.data();
-                    
-                    const active_substription = data.subscription_end > new Date().getTime() ? 'Si' : 'No';
-                    
-                    <div className={styles.admin_panel_body_row}> 
-                        <div className={styles.admin_panel_body_name}>{data.name}</div>
-                        <div className={styles.admin_panel_body_visits}>X</div>
-                        <div className={styles.admin_panel_body_edit}>
-                            <button>Editar</button>
-                            </div>
-                        <div className={styles.admin_panel_body_subscriptor}>{active_substription}</div>
-                    </div>
+                {proveedores && proveedores.map((proveedor,index)=>{
+                                        
+                    return <ProveedorItem key={index} proveedor={proveedor.data()} />
                 })} 
             </div> 
         </div>

@@ -6,9 +6,19 @@ export default class InitFirebase{
 
     _app = null;
     _db= null;
-    static getInstance(){
+
+    static async getInstance(){
         if (InitFirebase.myInstance == null) {
-            InitFirebase.myInstance = new InitFirebase();
+            InitFirebase.myInstance = new InitFirebase(); 
+            await InitFirebase.myInstance.init();           
+        }        
+        return this.myInstance;
+        
+        
+    }
+    async init(){
+        console.log('init');
+        if(this._db===null){
             const firebaseConfig = {
                 apiKey: "AIzaSyDzIT_JVqLgsxit71KS2ulYr44UXzAb3OI",
                 authDomain: "bingo-5b085.firebaseapp.com",
@@ -18,13 +28,16 @@ export default class InitFirebase{
                 messagingSenderId: "864945342006",
                 appId: "1:864945342006:web:f939ad69a4f5c32e9cba97"
               };
-            this._app = initializeApp(firebaseConfig);
-            const db = getFirestore(this._app);
+            this._app = await initializeApp(firebaseConfig);
+            this._db = getFirestore(this._app);
+            console.log('getInstance----------->',this._app)
         }
-        return this.myInstance;
+         
+
     }
 
     getDB() {
+        console.log('getDB----------->',this._app)
         return this._db
     }
 

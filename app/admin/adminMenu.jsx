@@ -4,16 +4,16 @@ export default function AdminMenu(){
     return(
         <div className={styles.admin_menu}>
             <div>
-                <a href="/admin/add_proveedor">Agregar Proveedor</a>
+                <a href="/admin/addProveedor">Agregar Proveedor</a>
             </div>
             <div>
-                <a href="/admin/add_subscription">Agregar Subscriptor</a>
+                <a href="/admin/addSubscription">Agregar Subscriptor</a>
             </div>
             <div>
-                <a href="/admin/report_visits">Reporte visitas</a>
+                <a href="/admin/reportVisits">Reporte visitas</a>
             </div>
             <div>
-                <a href="/admin/report_visits">Reporte Subscriptores</a>
+                <a href="/admin/reportSubscription">Reporte Subscriptores</a>
             </div>
         </div>
     )
