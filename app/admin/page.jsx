@@ -7,7 +7,7 @@ import AdminMenu from "./adminMenu";
 import ProveedoresList from "./proveedoresList"
 import validateUser from '../../helpers/validate_user'
 
-export default function main(){
+export default function Main(){
     const [user,setUser] = useState();
 
     useEffect(()=>{
