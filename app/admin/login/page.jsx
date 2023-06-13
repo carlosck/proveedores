@@ -1,16 +1,16 @@
 "use client";
-import { useContext, useState} from 'react';
+import {useState} from 'react';
 import {  useRouter  } from 'next/navigation';
 import { auth } from '../../../firebase';
 import { signInWithEmailAndPassword  } from "firebase/auth";
-import {UserContext} from '../layout'
+//import {UserContext} from '../layout'
 
 
 export default function Login(){
     const [email,setEmail]= useState('');
     const [password,setPassword]= useState('');
     const [errorLogin,setErrorLogin]= useState('')
-    const [user,setUser]= useContext(UserContext)
+    //const [user,setUser]= useContext(UserContext)
     const { push } = useRouter();
 
     console.log('current User =>', user)
@@ -28,7 +28,7 @@ export default function Login(){
             // Signed in 
             const userresponse = userCredential.user;
             console.log('user --->',userresponse.email)
-            setUser(userresponse.email);
+            //setUser(userresponse.email);
             sessionStorage.setItem("user", userresponse.email);
             push('/admin');
             // ...

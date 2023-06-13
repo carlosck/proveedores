@@ -1,4 +1,3 @@
-
 import '../globals.css'
 import { Inter } from 'next/font/google'
 //import { createContext, useState } from 'react';
@@ -13,15 +12,13 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
-  const [user,setUser]=useState('test')
+  // const [user,setUser]=useState('test')
 
   return (
-    <UserContext.Provider value={[user,setUser]}>
-      <html lang="en">
+    <html lang="en">
         <body className={inter.className}>
           {children}
         </body>
       </html>
-    </UserContext.Provider>
   )
 }
