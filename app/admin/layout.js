@@ -1,9 +1,9 @@
-'use client';
+
 import '../globals.css'
 import { Inter } from 'next/font/google'
-import { createContext, useState } from 'react';
+//import { createContext, useState } from 'react';
 //import UserProvider from '../user-provider';
-export const UserContext = createContext();
+//export const UserContext = createContext();
 const inter = Inter({ subsets: ['latin'] })
 
 
