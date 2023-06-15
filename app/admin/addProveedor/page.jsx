@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { doc, setDoc } from "firebase/firestore";
 
 import InitFirebase from '../../../helpers/initFirebase'
+import {Slugify} from '../../../helpers/sluglify';
 import { Input } from '../commons/input'
 
 import formStyles from '../../../styles/forms.module.css'
@@ -12,12 +13,16 @@ export default function AddProveedor(){
     const methods = useForm({defaultValues: {
         name: 'deacero',
         contact: 'Juan Lopez',
-        logo: 'deacero.jpg',
+        logo: 'image_placeholder.png',
+        description: 'esto es un texto de prueba ',
+        address: 'carretera a Monterrey KM 3.8',
+        website: 'http://deacero.mx',        
+        phone: '844123123123',
+        email: 'jlopez@deacero.com',        
         area: 'acero',
         subarea: 'fundición',
-        mail: 'jlopez@deacero.com',
-        phone: '844123123123',
         subscription: 0
+        
     }})
     const [success, setSuccess] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -38,7 +43,7 @@ export default function AddProveedor(){
         console.log('db', db)
         console.log('insertData', data)
         //console.log('encodeURIComponent',encodeURIComponent(data.name))
-        await setDoc(doc(db, "proveedores",encodeURIComponent(data.name)), data)
+        await setDoc(doc(db, "proveedores",Slugify(data.name)), data)
         
         return (true)
     }
@@ -65,8 +70,8 @@ export default function AddProveedor(){
             message: 'required',
           },
           maxLength: {
-            value: 30,
-            message: '30 characters max',
+            value: 50,
+            message: '50 characters max',
           },
         },
       }
@@ -82,8 +87,8 @@ export default function AddProveedor(){
             message: 'required',
             },
             maxLength: {
-            value: 30,
-            message: '30 characters max',
+            value: 50,
+            message: '50 characters max',
             },
         },
     }
@@ -93,6 +98,57 @@ export default function AddProveedor(){
         type: 'text',
         id: 'logo',        
         placeholder: 'write your logo ...',
+        validation: {
+            required: {
+            value: true,
+            message: 'required',
+            },
+            maxLength: {
+            value: 50,
+            message: '50 characters max',
+            },
+        },
+    }
+    const description_validation = {
+        name: 'description',
+        label: 'description',
+        type: 'text',
+        id: 'description',        
+        placeholder: 'write your description ...',
+        validation: {
+            required: {
+            value: true,
+            message: 'required',
+            },
+            maxLength: {
+            value: 250,
+            message: '250 characters max',
+            },
+        },
+    }
+    const address_validation = {
+        name: 'address',
+        label: 'address',
+        type: 'text',
+        id: 'address',        
+        placeholder: 'write your address ...',
+        validation: {
+            required: {
+            value: true,
+            message: 'required',
+            },
+            maxLength: {
+            value: 150,
+            message: '150 characters max',
+            },
+        },
+    }
+    const website_validation = {
+        name: 'website',
+        label: 'website',
+        type: 'text',
+        id: 'website',        
+        placeholder: 'write your website ...',
         validation: {
             required: {
             value: true,
@@ -141,12 +197,12 @@ export default function AddProveedor(){
         },
     }
 
-    const mail_validation = {
-        name: 'mail',
-        label: 'mail',
+    const email_validation = {
+        name: 'email',
+        label: 'email',
         type: 'email',
-        id: 'mail',        
-        placeholder: 'write your mail ...',
+        id: 'email',        
+        placeholder: 'write your email ...',
         validation: {
             required: {
             value: true,
@@ -208,10 +264,13 @@ export default function AddProveedor(){
                     <Input {...name_validation} />
                     <Input {...contact_validation} />
                     <Input {...logo_validation} />
-                    <Input {...area_validation} />
-                    <Input {...subarea_validation} />
-                    <Input {...mail_validation} />
+                    <Input {...description_validation} />
+                    <Input {...address_validation} />
+                    <Input {...website_validation} />
                     <Input {...phone_validation} />
+                    <Input {...email_validation} />
+                    <Input {...area_validation} />
+                    <Input {...subarea_validation} />                    
                     <Input {...subscription_validation} />
                     {isLoading? (
                         <p>Loading</p>

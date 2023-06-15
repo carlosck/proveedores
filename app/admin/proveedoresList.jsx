@@ -58,7 +58,7 @@ export default function ProveedoresList(){
             <div className={styles.admin_panel_body}> 
                 
                 {proveedores && proveedores.map((proveedor,index)=>{
-                                        
+                    console.log('proveedor',proveedor);                                        
                     return <ProveedorItem key={index} proveedor={proveedor.data()} />
                 })} 
             </div> 

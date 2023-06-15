@@ -1,0 +1,37 @@
+.main_header{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+.header_bgcontainer{
+    width: 100%;    
+    position: absolute;
+    z-index: 0;
+}
+.header_bgcontainer img{
+    width: 100%;    
+    object-fit: cover;
+}
+.header_content_container{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    background-color: rgba(0,0,0,0.2);
+    min-height: 150px;
+    justify-content: center;
+    width: 100%;
+    color: white;
+}
+.header_title{    
+    position: relative;
+    padding: 20px 10px;
+    text-align: center;
+}
+.header_subtitle{    
+    position: relative;
+    padding: 20px 10px;
+    text-align: center;
+}
