@@ -1,10 +1,19 @@
  
-import {proveedorType} from '../.next/types/common/proveedorType';
+//import {proveedorType} from '../.next/types/common/proveedorType';
 import SearchResultCard from './SearchResultCard';
+import styles from './search.module.css';
+
 export default function SearchResultContainer({results}){
-    return results.map((result)=>{
-        return(
-            <SearchResultCard name={result.name} address={result.address} phone={result.phone} />
-        )
-    })
+    return(
+        <div className={styles.search_results_container}>
+            {results.map((result)=>{                
+                const proveedor = result.data();                
+                    return(
+                        <SearchResultCard key={result.id} slug={result.id} data={proveedor} />
+                    )
+                })
+            }
+        </div>
+    )
+    
 }

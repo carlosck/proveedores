@@ -1,3 +1,8 @@
 .search_container{
     padding: 15px;
 }
+
+.search_results_container{
+    display: grid;
+    grid-template-columns: 30% 30% 30%;    
+}

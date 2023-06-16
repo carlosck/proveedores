@@ -4,13 +4,14 @@
     flex: 1;
     width: 100%;
 }
-.search_header input{
+.search_header input,.search_header select{
     height: 40px;
     background-color: white;
     border: 1px solid #AEB3B7;
     padding-left: 10px;
     border-radius: 4px;
     gap: 10px;
+    color: black;
 }
 .search_header_title{
     font-style: normal;
@@ -41,7 +42,13 @@
 }
 .main_search_bottom{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
     flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+@media screen and (min-width: 768px){
+    .main_search_bottom{
+        flex-direction: row;
+    }
 }

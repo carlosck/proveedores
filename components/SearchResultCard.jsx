@@ -1,21 +1,25 @@
 import Image from "next/image"
-export default function SearchResultCard({image= "/image_placeholder.png", name, address, phone }){
+import style from './searchresultcard.module.css'
+
+export default function SearchResultCard({slug, data}){
+    console.log('data', data);
     return(
-        <div>
+        <a href={`./proveedor/${slug}`}  className={style.card}>
             <div>
                 <Image                
-                src={image}
-                alt={`${name} logo`}
+                src={`/${data.logo}`}
+                alt={`${data.name} logo`}
                 width={180}
                 height={37}
                 />
             </div>
             <div>
-                <h5>{name}</h5>
-                <p>{address}</p>
-                <p>{phone}</p>
+                <h5 className={style.card_name}>{data.name}</h5>
+                <p className={style.card_address}>{data.address}</p>
+                <p className={style.card_area}>{data.area}</p>
+                <p className={style.card_subarea}>{data.subarea}</p>             
             </div>
 
-        </div>
+        </a>
     )
 }

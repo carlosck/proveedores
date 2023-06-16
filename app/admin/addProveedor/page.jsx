@@ -42,11 +42,22 @@ export default function AddProveedor(){
     async function insertData(db, data){
         console.log('db', db)
         console.log('insertData', data)
-        //console.log('encodeURIComponent',encodeURIComponent(data.name))
+        
         await setDoc(doc(db, "proveedores",Slugify(data.name)), data)
+        
+        await insertAreaIndex(data.area, db)
+        await insertSubareaIndex(data.subarea, db)
         
         return (true)
     }
+    async function insertAreaIndex(area, db){
+        await setDoc(doc(db, "areas",Slugify(area)), {'name': area});
+    }
+
+    async function insertSubareaIndex(subarea, db){
+        await setDoc(doc(db, "subareas",Slugify(subarea)), {'name': subarea});
+    }
+
     async function getAppFirestore(){
         // TODO: move to oneliner
         console.log('getAppFirestore')

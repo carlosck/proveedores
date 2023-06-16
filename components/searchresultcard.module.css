@@ -1,0 +1,28 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    box-shadow: 10px 10px 5px 0px rgba(88, 76, 76, 0.781);
+    margin-bottom: 15px;
+}
+.card_name{
+    font-style: normal;
+    font-weight: 800;
+    line-height: 20px;
+    color: #0D1A26;
+}
+.card_address{
+    font-style: normal;
+    font-weight: 400;    
+    font-size: 15px;
+    line-height: 24px;
+    letter-spacing: 0.01em;
+    color: #0D1A26;
+}
+.card_phone{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #304050;
+}
