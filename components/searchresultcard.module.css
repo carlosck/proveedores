@@ -3,6 +3,11 @@
     flex-direction: column;
     box-shadow: 10px 10px 5px 0px rgba(88, 76, 76, 0.781);
     margin-bottom: 15px;
+    margin-right: 25px;
+    margin-bottom: 20px;    
+}
+.card_data_container{
+    padding: 10px;
 }
 .card_name{
     font-style: normal;

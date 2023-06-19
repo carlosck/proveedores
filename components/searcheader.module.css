@@ -47,6 +47,10 @@
     flex-wrap: wrap;
     margin-bottom: 30px;
 }
+.search_header_button{
+    padding: 10px 25px;;
+    margin-right: 25px;
+}
 @media screen and (min-width: 768px){
     .main_search_bottom{
         flex-direction: row;

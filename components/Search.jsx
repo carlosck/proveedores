@@ -6,15 +6,16 @@ import { useEffect, useState } from 'react';
 import SearchHeader from '../components/SearchHeader';
 import SearchResultContainer from '../components/SearchResultsContainer';
 import styles from './search.module.css';
-import {query, where } from "firebase/firestore";
+import {query, where, and, or } from "firebase/firestore";
 
 export default function Search(){
     const [provedores, setProveedores] = useState([]);
     const [areas, setAreas] = useState([]);
     const [subareas, setSubareas] = useState([]);
-    const [areaFilter, setAreaFilter] = useState([]);
-    const [subAreaFilter, setSubareaFilter] = useState([]);
+    const [areaFilter, setAreaFilter] = useState(null);
+    const [subAreaFilter, setSubareaFilter] = useState(null);
     const [searchWords, setSearchWords] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
     async function getAppFirestore(){
         // TODO: move to oneliner
@@ -26,6 +27,7 @@ export default function Search(){
         const proveedoresRef = collection(db, "proveedores");        
         const alldocuments = await getDocs(proveedoresRef)
         console.log('all documents ',alldocuments.docs)
+        setIsLoading(false);
         setProveedores(alldocuments.docs);
 
         const areasRef = collection(db, "areas");        
@@ -36,26 +38,24 @@ export default function Search(){
         const subareasRef = collection(db, "subareas");        
         const all_subareas = await getDocs(subareasRef)
         console.log('all_subareas ',all_subareas.docs)
-        setSubareas(all_subareas.docs)    
-        
-
-                
-        // const q = query(collection(db, "cities"), where("capital", "==", true));
-        // const docRef = db.collection("proveedores").document("titleToCheck").;
-        
+        setSubareas(all_subareas.docs)
+               
+        // const docRef = db.collection("proveedores").document("titleToCheck").;        
     
     }
-    async function searchQuery(){
+ 
+    async function searchQuery(searchName, searchArea, searchSubarea){
         const firebase =await InitFirebase.getInstance()        
-        const db= firebase.getDB();
-        // const q = query(collection(db, "proveedores"), where("area", "==", searchWords));
-        const q = query(collection(db, "proveedores"), and(
-            where('area', '==', searchWords),
-            or(
-              where('subarea', '==', searchWords),
-              where('name', '==', searchWords)
-            )
-          ))
+        const db= firebase.getDB();      
+        // ref.collection('usuario').orderBy('nombre').startAt(nombre).endAt(nombre+'\uf8ff')
+        
+        const q = query(collection(db, "proveedores"),
+        or(
+            where('subarea', '==', searchSubarea),
+            where('area', '==', searchArea),
+            where('name', '==', searchName),
+        )
+         )
           
         const queryDocuments = await getDocs(q);
         console.log('queryDocuments',queryDocuments.docs)
@@ -67,17 +67,30 @@ export default function Search(){
     },[])
 
     useEffect(()=>{
-        if(searchWords!==null){
-            console.log('searchWords',searchWords)
-            searchQuery();
+        console.log('------------ search --------------');
+        console.log('--   Words :',searchWords)
+        console.log('--    Area :',areaFilter)
+        console.log('--Sub-Area :',subAreaFilter)
+
+        if(searchWords || areaFilter || subAreaFilter){
+            searchQuery(
+                searchWords!==null? searchWords: '', 
+                areaFilter!==null? areaFilter: searchWords,
+                subAreaFilter!==null? subAreaFilter: searchWords,
+                );
+        }
+        else{
+            getAppFirestore()
         }
         
-    },[searchWords])
+        
+    },[searchWords, areaFilter, subAreaFilter])
+    
 
     return(
         <div className={styles.search_container}>
           <SearchHeader areas={areas} subareas={subareas} setAreaFilter={setAreaFilter} setSubareaFilter={setSubareaFilter} searchWords={searchWords} setSearchWords={setSearchWords}/>
-          <SearchResultContainer results={provedores}/>
+          <SearchResultContainer results={provedores} isLoading={isLoading}/>
         </div>
     )
 }

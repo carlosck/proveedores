@@ -13,7 +13,7 @@ export default function SearchResultCard({slug, data}){
                 height={37}
                 />
             </div>
-            <div>
+            <div className={style.card_data_container}>
                 <h5 className={style.card_name}>{data.name}</h5>
                 <p className={style.card_address}>{data.address}</p>
                 <p className={style.card_area}>{data.area}</p>
