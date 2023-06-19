@@ -3,8 +3,8 @@ export default function About(){
     return(
         <div className={style.about}>
             <h2> Acerca de nosotros</h2>
-            <p>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
-            "There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."
+            <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
+            There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nulla nibh, varius id ullamcorper ac, sodales at leo. Fusce ante nisi, vehicula vel commodo eget, vulputate vitae enim. Morbi varius diam eu erat iaculis tempus. Quisque hendrerit ex ac lorem tristique, eu ornare erat mollis. Curabitur faucibus ligula pretium diam commodo, id pharetra ligula ornare. Sed in venenatis purus. Ut commodo a tortor ac luctus.
             
             Pellentesque eu posuere nunc. Donec auctor leo eu neque convallis posuere. Praesent tristique magna elit, vitae bibendum nisi suscipit sit amet. Suspendisse volutpat metus eget mi egestas dictum. Nulla magna nunc, bibendum sed pretium et, consectetur molestie est. Donec vel mi tempor, interdum mauris eget, semper mauris. In tincidunt risus et dui varius ornare. Duis nec sem id enim mollis interdum. Proin viverra elementum libero non aliquet. Donec finibus iaculis neque sed finibus. Nunc tincidunt ipsum ac libero pretium vehicula. Morbi porta tristique ipsum, eget pretium lorem ultricies ac.
